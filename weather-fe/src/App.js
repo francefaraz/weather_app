@@ -4,8 +4,6 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Login from './components/Login';
 import Dashboard  from './components/Dashboard';
 function App() {
-  // const [accessToken, setAccessToken] = useState(null);
-
   return (
     <Router>
     <div className="App">

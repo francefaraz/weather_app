@@ -17,7 +17,7 @@ const authService = {
     return `Hello, ${name}!`
 },
   generateToken : (username) => {
-    console.log("HELLO",username)
+    console.log("welcome",username)
     const token = jwt.sign({ username }, "ksajfd8989@sldk", { expiresIn: '10m' }); // Token expires in 10 m
     return {
       success: true,
@@ -39,6 +39,8 @@ const authService = {
 
 // Create a new gRPC connector
 const connector = new GRPCConnector({ host: 'localhost', port: 50051 })
+
+console.log("GRPC SERVER STARTED")
 // Publish the service functions
 // connector.publish(service)
 

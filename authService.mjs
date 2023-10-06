@@ -9,7 +9,8 @@ const connector = new GRPCConnector({ host: 'localhost', port: 50051 });
 // static  data of registered users
 const registeredUsers = [
   { username: "aaa", password:"afr" },
-  { username: "faraz",password:"sahista" }
+  { username: "faraz",password:"sahista" },
+  {username:"admin",password:"admin"}
 ];
 
 const app = express()
@@ -18,45 +19,42 @@ const port = 8000
 app.use(cors())
 app.use(express.json())
 
-const validateUserCredentials = async (username,password)=>{
+export const validateUserCredentials = async (username,password)=>{
   console.log(`username ${username} and password is ${password}`)
-  console.log(registeredUsers.find(data=>  password==data.password && username==data.username),"hello")
   const result= registeredUsers.find(data=>  password==data.password && username==data.username)
-  console.log(result,"result is")
+  console.log("user result is",result)
   return result ? true : false;
   
 }
 
-app.post('/authenticate', async(req, res) => {
-  console.log(req.body,"af")
-    const { username, password } = req.body;
-
+export const authenticateHandler = (validateUserCredentials, grpcConnector) => async (req, res) => {
 
   
-    const isAuthenticated = await validateUserCredentials(username, password);
-    console.log("is user authenicated",isAuthenticated)
-    if (isAuthenticated) {
-      // Generate JWT token
-      connector
-  .call('generateToken', [username])
-  .then((result) => {
-    console.log('Result: is', result);
-    res.json(result)
-  })
-  .catch((error) => {
-    console.error('Error:', error);
-    res.status(401).json({ success:false,error: 'something went wrong' });
-  });
+  const { username, password } = req.body;
 
-    } else {
-      console.log("INVALID USERNAME OR PASSWORD")
-      res.status(401).json({ success:false,error: '“Incorrect username or password“' });
+  const isAuthenticated = await validateUserCredentials(username, password);
+
+  if (isAuthenticated) {
+    try {
+      // Generate JWT token using your gRPC connector
+      const token = await grpcConnector.call('generateToken', [username]);
+      res.json({ success: true, access_token: token.access_token });
+    } catch (error) {
+      console.error('Error:', error);
+      res.status(500).json({ success: false, error: 'Something went wrong while generating the token' });
     }
-  });
-  
+  } else {
+    console.log('INVALID USERNAME OR PASSWORD');
+    res.status(401).json({ success: false, error: 'Incorrect username or password' });
+  }
+};
+app.post("/authenticate", authenticateHandler(validateUserCredentials, connector));
+
 
 
 
 
 app.get('/', (req, res) => res.send('AuthService is running'))
 app.listen(port, () => console.log(`app listening on port ${port}!`))
+
+export {app}

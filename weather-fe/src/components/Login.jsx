@@ -22,10 +22,7 @@ const Login = () => {
       console.log(response,"api")
       if (response.data.success) {
         console.log("AUTHORIZED")
-        navigate('/dashboard',{state:response.data}); // Redirect to the dashboard route
-
-        // Authentication successful, redirect to the dashboard
-        // history.push('/dashboard');
+        navigate('/dashboard',{state:response.data}); 
         alert('login success')
         return
       }
