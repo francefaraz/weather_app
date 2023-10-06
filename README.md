@@ -97,3 +97,7 @@ and then run in another terminal
 ```bash
 npm test
 ```
+## References
+
+- [gRPC Connector Documentation](https://www.npmjs.com/package/simple-grpc-connector)
+- [Medium Article: Node.js Express with Jest and Supertest](https://medium.com/@it.ermias.asmare/node-js-express-with-jest-and-supertest-e58aaf4c4514)
