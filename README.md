@@ -11,7 +11,7 @@ Before running the application, ensure you have Node.js installed on your system
 1. Clone the repository:
 
     ```bash
-    git clone <repository-url>
+    git clone https://github.com/francefaraz/weather_app.git
     ```
 
 2. Navigate to the project directory:
