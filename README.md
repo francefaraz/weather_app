@@ -43,27 +43,33 @@ Before running the application, ensure you have Node.js installed on your system
     cd weather-fe
     npm start
     ```
+After running both frontend and backend open Chrome go to http://localhost:3000/  and do login 
+sample login usernames and password :
+
+    registeredUsers = [
+    { username: "aaa", password:"aaa" },
+    { username: "user",password:"password" },
+    {username:"admin",password:"admin"}]
+
 ## Usage
 
 ### Authentication
 
 To authenticate and obtain a JWT token, use the following endpoint:
 
-- **Endpoint:** `POST /authenticate`
-- **Request Body:**
+ **Endpoint:** `POST /authenticate`
+ **Request Body:**
 
-    ```json
+    
     {
       "username": "admin",
       "password": "admin"
     }
-    ```
+    
 
     Example using cURL:
 
-    ```bash
     curl -X POST http://localhost:8000/authenticate -d '{"username": "admin", "password": "admin"}' -H "Content-Type: application/json"
-    ```
 
     The response will contain an access token if the authentication is successful.
 
@@ -71,7 +77,7 @@ To authenticate and obtain a JWT token, use the following endpoint:
 
 To retrieve weather data for a specific city, use the following endpoint:
 
-- **Endpoint:** `GET /api/weather?city=<city-name>`
+ **Endpoint:** `GET /api/weather?city=<city-name>`
 - **Request Header:**
 
     ```
