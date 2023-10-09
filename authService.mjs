@@ -8,8 +8,8 @@ const connector = new GRPCConnector({ host: 'localhost', port: 50051 });
 
 // static  data of registered users
 const registeredUsers = [
-  { username: "aaa", password:"afr" },
-  { username: "faraz",password:"sahista" },
+  { username: "aaa", password:"aaa" },
+  { username: "user", password:"password" },
   {username:"admin",password:"admin"}
 ];
 
